@@ -72,7 +72,7 @@ The crawler is capable of crawling **multiple domains** with different HTML stru
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/advanced-web-crawler.git
+git clone https://github.com/Hr-ArshA/shoplifter.git
 cd advanced-web-crawler
 ```
 
@@ -132,14 +132,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 This README file contains everything you need to understand, set up, and contribute to the **Advanced Web Crawler** project. Happy crawling! 🚀
 
-
 ---
-
-### Key Features of This Markdown:
-
-1. **Sectioned Layout**: The README is broken down into logical sections such as project overview, features, installation, contributing, and more.
-2. **Clear Formatting**: Proper use of headings, bullet points, and code blocks makes it easy to read and follow.
-3. **Links & References**: Hyperlinks to the official websites and GitHub repository make it easy for users to find more information.
-4. **Command-Line Instructions**: Clear installation and execution instructions in a terminal-friendly format.
-
-This structure should make the repository clear and easy to understand for anyone browsing it.
+This project is under development.
