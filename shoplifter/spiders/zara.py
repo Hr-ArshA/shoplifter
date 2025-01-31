@@ -1,6 +1,7 @@
 import scrapy
 from ..items import ProductItem
 from time import sleep
+import json
 
 
 class ZaraSpider(scrapy.Spider):
@@ -9,6 +10,10 @@ class ZaraSpider(scrapy.Spider):
     start_urls = ["https://zara.com/us/"]
 
     redis_key = 'shoplifter:start_urls'
+
+    with open('config.json', 'r') as f:
+        config = json.load(f)['zara']
+
 
     def parse(self, response):
         carousel = response.css("div.zds-carousel-content ul")
@@ -21,7 +26,6 @@ class ZaraSpider(scrapy.Spider):
                 except:
                     pass
 
-
         for page in all_pages:
             yield response.follow(page, self.page_parse)
 
@@ -33,7 +37,7 @@ class ZaraSpider(scrapy.Spider):
 
         for card in cards:
             try:
-                all_products.add(card.css("a.product-link").attrib['href'])
+                all_products.add(card.css(self.config['url']['css']).attrib['href'])
             except:
                 pass
 
@@ -46,13 +50,16 @@ class ZaraSpider(scrapy.Spider):
 
         item['url'] = response.request.url
         item["product_id"] = response.request.url.split('-')[-1].split('.')[0][1:]
-        sleep(15)
+        sleep(20)
 
-        item['title'] = response.css("h1::text").get()
-        item['price'] = response.css("span.money-amount__main::text").get()
-        item['description'] = " ".join([i.get() for i in response.xpath("//div[@class='expandable-text__inner-content']/p/text()")])
+        item['title'] = response.css(self.config['title']['css']).get()
+        item['price'] = response.css(self.config['price'['css']]).get()
 
-        if response.css("ul.product-detail-color-selector__color-selector-container") == []:
+        # Extracting description text from HTML structure and pasting them together
+        item['description'] = " ".join([i.get() for i in response.xpath(self.config['description']['xpath'])])
+
+        # Extracting colors from HTML structure
+        if response.css(self.config['color']['css']) == []:
             if type(response.css("p.product-color-extended-name::text").get()) != None:
                 item['color'] = [response.css("p.product-color-extended-name::text").get()]
             else:
@@ -60,23 +67,13 @@ class ZaraSpider(scrapy.Spider):
         else:
             item['color'] = [i.get() for i in response.css("span.screen-reader-text::text")]
 
-
-        if response.css("div.size-selector-sizes-size__label::text") == []:
+        # Extracting size from HTML structure
+        if response.css(self.config['size']['css']) == []:
             item['size'] = []
         else:   
-            item['size'] = [i.get() for i in response.css("div.size-selector-sizes-size__label::text")]
+            item['size'] = [i.get() for i in response.css(self.config['size']['css'])]
 
+        # Extracting photos and adding them to the list
+        item['pictures'] = [str(i).split(' ')[0].split('?')[0] for i in response.css(self.config['images']['css'])]
 
-        pic_list = list()
-
-        for img in response.css("div.media__wrapper"):
-            try:
-                pic_list.append(img.css("picture source").attrib['srcset'].split(' ')[0].split('?')[0])
-        
-            except:
-                pass
-        
-        item['pictures'] = pic_list
-
-        print(item)
         yield item

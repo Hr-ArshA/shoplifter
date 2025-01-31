@@ -12,10 +12,15 @@ BOT_NAME = "shoplifter"
 SPIDER_MODULES = ["shoplifter.spiders"]
 NEWSPIDER_MODULE = "shoplifter.spiders"
 
-FEED = {}
+FEED = {
+    'shoplofter.json': {
+        "format": 'json',
+        'overwrite': True
+    }
+}
 
 
-SCRAPEOPS_API_KEY = '498e4459-db6f-4386-b8fc-24646328e2b6'
+SCRAPEOPS_API_KEY = ''
 SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = 'https://headers.scrapeops.io/v1/user-agents'
 SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
 
@@ -26,25 +31,25 @@ SCRAPEOPS_NUM_RESULTS = 50
 
 
 # Enable the Redis scheduler
-SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+# SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 # Ensure that the scheduler does not clean up the queue after crawling
-SCHEDULER_PERSIST = True
+# SCHEDULER_PERSIST = True
 # Use Redis for the duplicate filter to prevent re-scraping the same items
-DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+# DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
 # Redis connection parameters
-REDIS_URL = 'redis://localhost:6379'  # If your Redis is running locally
-REDIS_ENCODING = 'utf-8'  # For proper encoding/decoding
+# REDIS_URL = 'redis://localhost:6379'  # If your Redis is running locally
+# REDIS_ENCODING = 'utf-8'  # For proper encoding/decoding
 
 # Optional: Set up the Redis key for the start URLs
-REDIS_START_URLS_KEY = 'shoplifter:start_urls'
+# REDIS_START_URLS_KEY = 'shoplifter:start_urls'
 
 
-MYSQL_HOST = 'localhost'
-MYSQL_DATABASE = 'shoplifter_db'
-MYSQL_USER = 'root'
-MYSQL_PASSWORD = 'rootpassword'
-MYSQL_PORT = 3306
+# MYSQL_HOST = 'localhost'
+# MYSQL_DATABASE = 'shoplifter_db'
+# MYSQL_USER = 'root'
+# MYSQL_PASSWORD = 'rootpassword'
+# MYSQL_PORT = 3306
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "shoplifter (+http://www.yourdomain.com)"
@@ -87,9 +92,8 @@ COOKIES_ENABLED = True
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     "shoplifter.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 400,
-#    "shoplifter.middlewares.ShoplifterDownloaderMiddleware": 543,
-    'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
-    'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+    # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+    # 'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
 }
 
 # Optional: Define a list of proxies
@@ -118,8 +122,8 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   "shoplifter.pipelines.ShoplifterPipeline": 300,
-   "shoplifter.pipelines.MySQLPipeline": 400,
+#    "shoplifter.pipelines.ShoplifterPipeline": 300,
+#    "shoplifter.pipelines.MySQLPipeline": 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -148,5 +152,5 @@ TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
 # # LOGGING
-LOG_LEVEL = 'DEBUG'
-LOG_FILE = './scrapy_log.log'
+# LOG_LEVEL = 'DEBUG'
+# LOG_FILE = './scrapy_log.log'

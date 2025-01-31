@@ -1,0 +1,80 @@
+{
+  "zara": {
+    "website": "zara.com",
+    "selectors": {
+      "product": {
+        "url": {
+          "css": "a.product-link",
+          "xpath": "//a[@class='product-link']"
+        },
+        "product_id": {
+          "css": "a.product-link",
+          "xpath": "//a[@class='product-link']"
+        },
+        "title": {
+          "css": "h1::text",
+          "xpath": "//h1/text()"
+        },
+        "price": {
+          "css": "span.money-amount__main::text",
+          "xpath": "//span[@class='money-amount__main']/text()"
+        },
+        "description": {
+          "css": "div.expandable-text__inner-content p::text",
+          "xpath": "//div[@class='expandable-text__inner-content']/p/text()"
+        },
+        "color": {
+          "css": "ul.product-detail-color-selector__color-selector-container",
+          "xpath": "//ul[@class='product-detail-color-selector__color-selector-container']"
+        },
+        "size": {
+          "css": "div.size-selector-sizes-size__label::text",
+          "xpath": "//div[@class='size-selector-sizes-size__label']/text()"
+        },
+        "images": {
+          "css": "div.media__wrapper picture source::attr(srcset)",
+          "xpath": "//div[@class='media__wrapper']//picture//source/@srcset"
+        }
+      }
+    }
+  },
+  "shein": {
+    "website": "shein.com",
+    "selectors": {
+      "product": {
+        "url": {
+          "css": "a.product-card-link",
+          "xpath": "//a[@class='product-card-link']"
+        },
+        "product_id": {
+          "css": "a.product-card-link",
+          "xpath": "//a[@class='product-card-link']/@href"
+        },
+        "title": {
+          "css": "h1.product-title::text",
+          "xpath": "//h1[@class='product-title']/text()"
+        },
+        "price": {
+          "css": "span.product-price-value::text",
+          "xpath": "//span[@class='product-price-value']/text()"
+        },
+        "description": {
+          "css": "div.product-description p::text",
+          "xpath": "//div[@class='product-description']/p/text()"
+        },
+        "color": {
+          "css": "ul.color-selector li",
+          "xpath": "//ul[@class='color-selector']/li"
+        },
+        "size": {
+          "css": "div.size-selector-item::text",
+          "xpath": "//div[@class='size-selector-item']/text()"
+        },
+        "images": {
+          "css": "div.product-image-gallery img::attr(src)",
+          "xpath": "//div[@class='product-image-gallery']//img/@src"
+        }
+      }
+    }
+  }
+}
