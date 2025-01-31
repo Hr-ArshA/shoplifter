@@ -73,7 +73,7 @@ The crawler is capable of crawling **multiple domains** with different HTML stru
 
 ```bash
 git clone https://github.com/Hr-ArshA/shoplifter.git
-cd advanced-web-crawler
+cd shoplifter
 ```
 
 ### Install Dependencies
