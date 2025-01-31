@@ -1,5 +1,7 @@
 # Advanced Web Crawler
 
+![image created with https://mann-e.com/](banner.jpg)
+
 ## Project Overview
 
 This project aims to build a powerful **web crawler** that collects product information (such as price, title, description, and image) from multiple e-commerce websites. The crawler stores the data in a MySQL database while ensuring performance optimization and reliability. It is designed to be flexible, scalable, and resistant to common challenges like rate limiting, CAPTCHA, and IP blocking.
