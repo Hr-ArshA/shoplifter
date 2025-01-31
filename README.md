@@ -65,8 +65,7 @@ The crawler is capable of crawling **multiple domains** with different HTML stru
 - **Python 3.x** or higher
 - **MySQL** installed and configured
 - **Scrapy** installed: `pip install scrapy`
-- **Celery** (optional for distributed task management): `pip install celery`
-- **AsyncIO** (for asynchronous tasks)
+
 
 ### Clone the Repository
 
@@ -127,8 +126,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgements
 
 - **Scrapy**: A powerful and flexible web scraping framework used for crawling.
-- **Celery**: Distributed task queue system used for parallel execution.
-- **AsyncIO**: Python’s library for writing concurrent code using the async/await syntax.
+- **Redis**: Distributed task queue system used for parallel execution.
 - **MySQL**: The relational database used to store the scraped data.
 
 ---
