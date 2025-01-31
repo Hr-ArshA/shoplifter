@@ -53,7 +53,7 @@ The crawler is capable of crawling **multiple domains** with different HTML stru
    - **Adherence to SOLID Principles**: Follows SOLID principles for object-oriented design.
    - **Scalability**: Ability to scale for large amounts of data and multiple domains.
    - **Performance**: Efficient use of resources like time and memory.
-   - **Professional Tools**: Utilizes professional tools like **AsyncIO**, **Celery**, and **Scrapy** to manage concurrency and tasks.
+   - **Professional Tools**: Utilizes professional tools like *Redis*, *Docker*, and **Scrapy** to manage concurrency and tasks.
 
 ## Websites to Crawl
 
@@ -89,19 +89,12 @@ pip install -r requirements.txt
 
 ### Run the Crawler
 
-1. To run the spider for Shein:
-
-   ```bash
-   scrapy crawl shein
-   ```
-
-2. To run the spider for Zara:
+1. To run the spider for Zara:
 
    ```bash
    scrapy crawl zara
    ```
 
-3. If you're using **Celery** for task management, you can configure tasks for distributed crawling.
 
 ## Customizing the Crawler
 
