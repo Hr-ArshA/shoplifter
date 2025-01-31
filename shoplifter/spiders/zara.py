@@ -8,6 +8,8 @@ class ZaraSpider(scrapy.Spider):
     allowed_domains = ["zara.com"]
     start_urls = ["https://zara.com/us/"]
 
+    redis_key = 'shoplifter:start_urls'
+
     def parse(self, response):
         carousel = response.css("div.zds-carousel-content ul")
 
@@ -48,7 +50,7 @@ class ZaraSpider(scrapy.Spider):
 
         item['title'] = response.css("h1::text").get()
         item['price'] = response.css("span.money-amount__main::text").get()
-        item['description'] = response.css("div.expandable-text__inner-content p::text").get()
+        item['description'] = " ".join([i.get() for i in response.xpath("//div[@class='expandable-text__inner-content']/p/text()")])
 
         if response.css("ul.product-detail-color-selector__color-selector-container") == []:
             if type(response.css("p.product-color-extended-name::text").get()) != None:
