@@ -1,0 +1,118 @@
+2025-01-31 13:31:57 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: shoplifter)
+2025-01-31 13:31:57 [scrapy.utils.log] INFO: Versions: lxml 5.3.0.0, libxml2 2.12.9, cssselect 1.2.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.13.1 (main, Dec  4 2024, 18:05:56) [GCC 14.2.1 20240910], pyOpenSSL 25.0.0 (OpenSSL 3.4.0 22 Oct 2024), cryptography 44.0.0, Platform Linux-6.12.10-arch1-1-x86_64-with-glibc2.40
+2025-01-31 13:31:57 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-01-31 13:31:57 [asyncio] DEBUG: Using selector: EpollSelector
+2025-01-31 13:31:57 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2025-01-31 13:31:57 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.unix_events._UnixSelectorEventLoop
+2025-01-31 13:31:57 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2025-01-31 13:31:57 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.unix_events._UnixSelectorEventLoop
+2025-01-31 13:31:57 [scrapy.extensions.telnet] INFO: Telnet Password: 3ee3fb26992f388d
+2025-01-31 13:31:57 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.throttle.AutoThrottle']
+2025-01-31 13:31:57 [scrapy.crawler] INFO: Overridden settings:
+{'AUTOTHROTTLE_ENABLED': True,
+ 'AUTOTHROTTLE_MAX_DELAY': 10,
+ 'AUTOTHROTTLE_START_DELAY': 1,
+ 'BOT_NAME': 'shoplifter',
+ 'CONCURRENT_REQUESTS_PER_IP': 8,
+ 'DOWNLOAD_DELAY': 3,
+ 'DOWNLOAD_TIMEOUT': 10,
+ 'DUPEFILTER_CLASS': 'scrapy_redis.dupefilter.RFPDupeFilter',
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOGSTATS_INTERVAL': 0,
+ 'LOG_FILE': './scrapy_log.log',
+ 'NEWSPIDER_MODULE': 'shoplifter.spiders',
+ 'RETRY_HTTP_CODES': [500, 502, 503, 504, 400, 403, 404, 429],
+ 'RETRY_TIMES': 5,
+ 'SCHEDULER': 'scrapy_redis.scheduler.Scheduler',
+ 'SPIDER_MODULES': ['shoplifter.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'}
+2025-01-31 13:31:58 [urllib3.connectionpool] DEBUG: Starting new HTTP connection (1): headers.scrapeops.io:80
+2025-01-31 13:31:59 [urllib3.connectionpool] DEBUG: http://headers.scrapeops.io:80 "GET /v1/browser-headers?api_key=&num_results=50 HTTP/1.1" 301 178
+2025-01-31 13:31:59 [urllib3.connectionpool] DEBUG: Starting new HTTPS connection (1): headers.scrapeops.io:443
+2025-01-31 13:32:02 [urllib3.connectionpool] DEBUG: https://headers.scrapeops.io:443 "GET /v1/browser-headers?api_key=&num_results=50 HTTP/1.1" 200 30015
+2025-01-31 13:32:02 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'shoplifter.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'rotating_proxies.middlewares.RotatingProxyMiddleware',
+ 'rotating_proxies.middlewares.BanDetectionMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-01-31 13:32:02 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-01-31 13:32:02 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2025-01-31 13:32:02 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-01-31 13:32:02 [rotating_proxies.middlewares] INFO: Proxies(good: 0, dead: 0, unchecked: 2327, reanimated: 0, mean backoff time: 0s)
+2025-01-31 13:32:03 [asyncio] DEBUG: Using selector: EpollSelector
+2025-01-31 13:32:09 [asyncio] DEBUG: Using selector: EpollSelector
+2025-01-31 13:32:11 [scrapy.core.engine] INFO: Spider opened
+2025-01-31 13:32:12 [twisted] CRITICAL: Unhandled error in Deferred:
+2025-01-31 13:32:12 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/connection.py", line 357, in connect
+    sock = self.retry.call_with_retry(
+        lambda: self._connect(), lambda error: self.disconnect(error)
+    )
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/retry.py", line 62, in call_with_retry
+    return do()
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/connection.py", line 358, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ~~~~~~~~~~~~~^^
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/connection.py", line 730, in _connect
+    raise err
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/connection.py", line 718, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/twisted/internet/defer.py", line 2017, in _inlineCallbacks
+    result = context.run(gen.send, result)
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/scrapy/core/engine.py", line 386, in open_spider
+    scheduler = build_from_crawler(self.scheduler_cls, self.crawler)
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/scrapy/utils/misc.py", line 187, in build_from_crawler
+    instance = objcls.from_crawler(crawler, *args, **kwargs)  # type: ignore[attr-defined]
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/scrapy_redis/scheduler.py", line 128, in from_crawler
+    instance = cls.from_settings(crawler.settings)
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/scrapy_redis/scheduler.py", line 122, in from_settings
+    server.ping()
+    ~~~~~~~~~~~^^
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/commands/core.py", line 1212, in ping
+    return self.execute_command("PING", **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/client.py", line 559, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/client.py", line 565, in _execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+                              ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/connection.py", line 1422, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/arsha/projects/amoo/final_project/venv/lib/python3.13/site-packages/redis/connection.py", line 363, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to localhost:6379. Connection refused.
+2025-01-31 13:32:12 [asyncio] DEBUG: Using selector: EpollSelector
+2025-01-31 13:32:32 [rotating_proxies.middlewares] INFO: Proxies(good: 0, dead: 0, unchecked: 2327, reanimated: 0, mean backoff time: 0s)
+2025-01-31 13:33:02 [rotating_proxies.middlewares] INFO: Proxies(good: 0, dead: 0, unchecked: 2327, reanimated: 0, mean backoff time: 0s)
+2025-01-31 13:33:32 [rotating_proxies.middlewares] INFO: Proxies(good: 0, dead: 0, unchecked: 2327, reanimated: 0, mean backoff time: 0s)
+2025-01-31 13:34:02 [rotating_proxies.middlewares] INFO: Proxies(good: 0, dead: 0, unchecked: 2327, reanimated: 0, mean backoff time: 0s)

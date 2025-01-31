@@ -1,5 +1,5 @@
 import time
-from anticaptchaofficial.recaptchav2proxyless import AntiCaptchaRecaptchaV2Proxyless
+from anticaptchaofficial.recaptchav2proxyless import *
 
 # Your Anti-Captcha API key
 # https://anti-captcha.com/
@@ -15,7 +15,7 @@ def solve_captcha(site_url, site_key):
     :param site_key: The site key for the CAPTCHA.
     :return: The solution to the CAPTCHA.
     """
-    solver = AntiCaptchaRecaptchaV2Proxyless()
+    solver = recaptchaV2Proxyless()
     
     # Set your Anti-Captcha API key
     solver.set_key(API_KEY)

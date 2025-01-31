@@ -58,21 +58,17 @@ class ZaraSpider(scrapy.Spider):
     
     def _is_captcha_page(self, response):
         # Check if the response page contains a CAPTCHA challenge.
-        # Modify this function based on the HTML structure of the CAPTCHA page.
         return 'recaptcha' in response.text.lower()
     
     def _get_site_key(self, response):
         # Extract the reCAPTCHA site key from the page.
-        # Modify this function based on the website's HTML.
-        # Example: extract reCAPTCHA site key using a regex or XPath/CSS selector
         site_key = response.xpath('//div[@class="g-recaptcha"]/@data-sitekey').get()
         return site_key
     
     def after_captcha(self, response):
         # Handle the page after the CAPTCHA is solved.
-        # You can now continue parsing the data after successfully bypassing the CAPTCHA.
         print("CAPTCHA bypassed successfully, continue scraping.")
-        # Continue scraping the products or process the response further
+
         self.parse_pages(response)
 
 
