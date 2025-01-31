@@ -14,6 +14,15 @@ class ZaraSpider(scrapy.Spider):
     with open('config.json', 'r') as f:
         config = json.load(f)['zara']
 
+    custom_settings = {
+        'FEEDS': {
+            'zara.json': {
+                'format': 'json',
+                'overwrite': True
+            }
+        }
+    }
+
 
     def parse(self, response):
         carousel = response.css("div.zds-carousel-content ul")

@@ -21,8 +21,6 @@ FEED = {
 
 
 SCRAPEOPS_API_KEY = ''
-SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = 'https://headers.scrapeops.io/v1/user-agents'
-SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
 
 SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT = "http://headers.scrapeops.io/v1/browser-headers"
 SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED = True
@@ -31,25 +29,25 @@ SCRAPEOPS_NUM_RESULTS = 50
 
 
 # Enable the Redis scheduler
-# SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 # Ensure that the scheduler does not clean up the queue after crawling
-# SCHEDULER_PERSIST = True
+SCHEDULER_PERSIST = True
 # Use Redis for the duplicate filter to prevent re-scraping the same items
-# DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
 # Redis connection parameters
-# REDIS_URL = 'redis://localhost:6379'  # If your Redis is running locally
-# REDIS_ENCODING = 'utf-8'  # For proper encoding/decoding
+REDIS_URL = 'redis://localhost:6379' 
+REDIS_ENCODING = 'utf-8'
 
 # Optional: Set up the Redis key for the start URLs
-# REDIS_START_URLS_KEY = 'shoplifter:start_urls'
+REDIS_START_URLS_KEY = 'shoplifter:start_urls'
 
 
-# MYSQL_HOST = 'localhost'
-# MYSQL_DATABASE = 'shoplifter_db'
-# MYSQL_USER = 'root'
-# MYSQL_PASSWORD = 'rootpassword'
-# MYSQL_PORT = 3306
+MYSQL_HOST = 'localhost'
+MYSQL_DATABASE = 'shoplifter_db'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'rootpassword'
+MYSQL_PORT = 3306
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "shoplifter (+http://www.yourdomain.com)"
@@ -84,16 +82,20 @@ COOKIES_ENABLED = True
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+# SPIDER_MIDDLEWARES = {
+#    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
 #    "shoplifter.middlewares.ShoplifterSpiderMiddleware": 543,
-#}
+# }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     "shoplifter.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 400,
-    # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
-    # 'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+    'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+    'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+    # 'scrapy_splash.SplashCookiesMiddleware': 723,
+    # 'scrapy_splash.SplashMiddleware': 725,
+    # 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
 }
 
 # Optional: Define a list of proxies
@@ -103,7 +105,21 @@ DOWNLOADER_MIDDLEWARES = {
 # ]
 
 # proxy list
-# ROTATING_PROXY_LIST_PATH = './http.txt'
+ROTATING_PROXY_LIST_PATH = './http.txt'
+
+# # Using Splash
+# SPLASH_URL = 'http://http://127.0.0.1:8050/'
+
+# # Settings for Splash
+# DUPEFILTER_CLASS = 'scrapy.dupefilters.RFPDupeFilter'
+# HTTPCACHE_STORAGE = 'scrapy_splash.DummyHTTPCacheStorage'
+# REQUEST_FINGERPRINTER_CLASS = 'scrapy_splash.SplashRequestFingerprinter'
+
+
+# # Timeouts and splash settings
+# SPLASH_COOKIES_ENABLED = False
+# SPLASH_DELAY = 2
+
 
 # Error Handling and Retries: Handle HTTP errors like 404, 500, etc., by enabling retries
 RETRY_ENABLED = True
@@ -152,5 +168,5 @@ TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
 # # LOGGING
-# LOG_LEVEL = 'DEBUG'
-# LOG_FILE = './scrapy_log.log'
+LOG_LEVEL = 'DEBUG'
+LOG_FILE = './scrapy_log.log'
