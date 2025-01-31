@@ -1,0 +1,28 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: redis-container
+    ports:
+      - "6379:6379"  # Exposing Redis on port 6379
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Set root password for MySQL
+      MYSQL_DATABASE: shoplifter_db  # Automatically create the database
+    ports:
+      - "3306:3306"  # Exposing MySQL on port 3306
+    networks:
+      - app-network
+    volumes:
+      - mysql-data:/var/lib/mysql  # Persist data between container restarts
+
+networks:
+  app-network:
+    driver: bridge  # Use a bridge network for container communication
+
+volumes:
+  mysql-data:  # This volume will persist MySQL data

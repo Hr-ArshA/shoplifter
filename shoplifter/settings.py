@@ -12,7 +12,10 @@ BOT_NAME = "shoplifter"
 SPIDER_MODULES = ["shoplifter.spiders"]
 NEWSPIDER_MODULE = "shoplifter.spiders"
 
-SCRAPEOPS_API_KEY = ''
+FEED = {}
+
+
+SCRAPEOPS_API_KEY = '498e4459-db6f-4386-b8fc-24646328e2b6'
 SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = 'https://headers.scrapeops.io/v1/user-agents'
 SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
 
@@ -22,22 +25,45 @@ SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED = True
 SCRAPEOPS_NUM_RESULTS = 50
 
 
+# Enable the Redis scheduler
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+# Ensure that the scheduler does not clean up the queue after crawling
+SCHEDULER_PERSIST = True
+# Use Redis for the duplicate filter to prevent re-scraping the same items
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+# Redis connection parameters
+REDIS_URL = 'redis://localhost:6379'  # If your Redis is running locally
+REDIS_ENCODING = 'utf-8'  # For proper encoding/decoding
+
+# Optional: Set up the Redis key for the start URLs
+REDIS_START_URLS_KEY = 'shoplifter:start_urls'
+
+
+MYSQL_HOST = 'localhost'
+MYSQL_DATABASE = 'shoplifter_db'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'rootpassword'
+MYSQL_PORT = 3306
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "shoplifter (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
-# Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 16
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 DOWNLOAD_DELAY = 3
+
+# Configure maximum concurrent requests performed by Scrapy (default: 16)
+CONCURRENT_REQUESTS = 16
+
 # The download delay setting will honor only one of:
 CONCURRENT_REQUESTS_PER_DOMAIN = 8
-#CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS_PER_IP = 8
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = True
@@ -62,8 +88,8 @@ COOKIES_ENABLED = True
 DOWNLOADER_MIDDLEWARES = {
     "shoplifter.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 400,
 #    "shoplifter.middlewares.ShoplifterDownloaderMiddleware": 543,
-    # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
-    # 'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+    'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+    'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
 }
 
 # Optional: Define a list of proxies
@@ -78,7 +104,9 @@ DOWNLOADER_MIDDLEWARES = {
 # Error Handling and Retries: Handle HTTP errors like 404, 500, etc., by enabling retries
 RETRY_ENABLED = True
 RETRY_TIMES = 5
-RETRY_HTTP_CODES = [500, 502, 503, 504, 408, 404, 429]
+RETRY_HTTP_CODES = [500, 502, 503, 504, 400, 403, 404, 429]
+RANDOMIZE_DOWNLOAD_DELAY = True
+
 
 
 # Enable or disable extensions
@@ -91,20 +119,21 @@ RETRY_HTTP_CODES = [500, 502, 503, 504, 408, 404, 429]
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    "shoplifter.pipelines.ShoplifterPipeline": 300,
+   "shoplifter.pipelines.MySQLPipeline": 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_START_DELAY = 1
 # The maximum download delay to be set in case of high latencies
-AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_MAX_DELAY = 10
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
 AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 # Enable showing throttling stats for every response received:
-#AUTOTHROTTLE_DEBUG = False
+AUTOTHROTTLE_DEBUG = False
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings

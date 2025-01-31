@@ -109,7 +109,6 @@ class ShoplifterDownloaderMiddleware:
 
 
 class ScrapeOpsFakeBrowserHeaderAgentMiddleware:
-
     @classmethod
     def from_crawler(cls, crawler):
         return cls(crawler.settings)
