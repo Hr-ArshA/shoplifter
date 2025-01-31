@@ -4,6 +4,7 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.downloadermiddlewares.retry import get_retry_request
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
@@ -47,7 +48,17 @@ class ScrapeOpsFakeBrowserHeaderAgentMiddleware:
         else:
             self.scrapeops_fake_browser_headers_active = True
     
-    def process_request(self, request, spider):        
+    def process_request(self, request, spider):     
         random_browser_header = self._get_random_browser_header()
         # request.headers = random_browser_header
         request.headers = Headers(random_browser_header)
+
+
+class CustomRetryMiddleware:
+    def process_response(self, request, response, spider):
+        if response.status in [429, 500]:
+            retry_request = get_retry_request(request, spider, reason="HTTP error")
+            if retry_request:
+                spider.logger.info(f"Retrying {request.url} due to error {response.status}")
+                return retry_request
+        return response

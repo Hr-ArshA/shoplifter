@@ -9,6 +9,12 @@ from itemadapter import ItemAdapter
 import mysql.connector
 from mysql.connector import Error
 import json
+import logging
+from scrapy.exceptions import DropItem
+
+
+logging.basicConfig(level=logging.DEBUG, 
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class ShoplifterPipeline:
@@ -52,6 +58,7 @@ class MySQLPipeline:
                 port=self.mysql_port
             )
             self.cursor = self.connection.cursor()
+            self.logger = logging.getLogger(__name__)
             self.cursor.execute("""
                 CREATE TABLE IF NOT EXISTS products (
                     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,11 +73,16 @@ class MySQLPipeline:
                 )
             """)
         except Error as e:
-            print(f"Error opening MySQL connection: {e}")
+            self.logger.error(f"Error opening MySQL connection: {e}")
+            raise DropItem(f"Error opening MySQL connection: {e}")
+
 
     def close_spider(self, spider):
-        if hasattr(self, 'connection') and self.connection:
-            self.connection.commit()  # Commit any changes
+        try:
+            self.connection.commit()
+        except Error as e:
+            self.logger.error(f"Failed to commit data to MySQL: {e}")
+        finally:
             self.cursor.close()
             self.connection.close()
 
@@ -100,6 +112,8 @@ class MySQLPipeline:
             ))
             self.connection.commit()
         except Error as e:
-            print(f"Error inserting item into MySQL: {e}")
+            self.logger.error(f"Error inserting item into MySQL: {e}")
+            raise DropItem(f"Error inserting item into MySQL: {e}")
+
             return None  # Continue processing other items
         return item
